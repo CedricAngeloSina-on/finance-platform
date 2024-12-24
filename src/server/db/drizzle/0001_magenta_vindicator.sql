@@ -1,0 +1,1 @@
+ALTER TABLE "finance-platform_account" ADD COLUMN "plaid_id" text;
