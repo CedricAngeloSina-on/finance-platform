@@ -3,13 +3,10 @@ import "~/styles/globals.css";
 import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
 
-import {
-  ClerkProvider,
-  SignInButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from "@clerk/nextjs";
+import { Toaster } from "~/components/ui/sonner";
+
+import { ClerkProvider } from "@clerk/nextjs";
+import { SheetProvider } from "~/components/providers/sheet-provider";
 import { ThemeProvider } from "~/components/theme-switcher";
 import { TRPCReactProvider } from "~/trpc/react";
 
@@ -37,13 +34,10 @@ export default function RootLayout({
               enableSystem
               disableTransitionOnChange
             >
-              <SignedOut>
-                <SignInButton />
-              </SignedOut>
-              <SignedIn>
-                <UserButton />
-              </SignedIn>
-              {children}
+              <SheetProvider>
+                {children}
+                <Toaster />
+              </SheetProvider>
             </ThemeProvider>
           </TRPCReactProvider>
         </body>
