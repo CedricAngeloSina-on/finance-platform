@@ -15,6 +15,19 @@ export const accountsRouter = createTRPCRouter({
       });
     }),
 
+  getAccount: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const account = await db
+        .select({ id: accounts.id, name: accounts.name })
+        .from(accounts)
+        .where(
+          and(eq(accounts.user_id, ctx.userId), eq(accounts.id, input.id)),
+        );
+
+      return account[0];
+    }),
+
   getAllAccounts: protectedProcedure.query(async ({ ctx }) => {
     const allAccounts = await db
       .select({ id: accounts.id, name: accounts.name })
