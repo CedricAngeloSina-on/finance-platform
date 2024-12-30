@@ -1,4 +1,6 @@
 "use client";
+
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { LayoutDashboard, ReceiptText, Tag, Wallet } from "lucide-react";
@@ -41,7 +43,7 @@ export function NavMain() {
       <SidebarMenu>
         {links.map((link) => (
           <SidebarMenuItem key={link.title}>
-            <a href={link.url}>
+            <Link href={link.url}>
               <SidebarMenuButton
                 tooltip={link.title}
                 isActive={pathname === link.url ? true : false}
@@ -49,7 +51,7 @@ export function NavMain() {
                 {link.icon && <link.icon />}
                 <span>{link.title}</span>
               </SidebarMenuButton>
-            </a>
+            </Link>
           </SidebarMenuItem>
         ))}
       </SidebarMenu>

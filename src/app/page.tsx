@@ -40,6 +40,8 @@ export default async function Home() {
             <p className="text-2xl text-white">
               {hello ? hello.greeting : "Loading tRPC query..."}
             </p>
+            <Link href="/accounts">ACCOUNTS</Link>
+            <Link href="/overview">OVERVIEW</Link>
           </div>
         </div>
       </main>
