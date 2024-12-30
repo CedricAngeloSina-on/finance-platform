@@ -1,7 +1,7 @@
 "use client";
 import { usePathname } from "next/navigation";
 
-import { type LucideIcon } from "lucide-react";
+import { LayoutDashboard, ReceiptText, Tag, Wallet } from "lucide-react";
 
 import {
   SidebarGroup,
@@ -9,30 +9,45 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "~/components/ui/sidebar";
-export function NavMain({
-  items,
-}: {
-  items: {
-    title: string;
-    url: string;
-    icon?: LucideIcon;
-    isActive?: boolean;
-  }[];
-}) {
+
+const links = [
+  {
+    title: "Overview",
+    url: "/overview",
+    icon: LayoutDashboard,
+  },
+  {
+    title: "Records",
+    url: "/records",
+    icon: ReceiptText,
+  },
+  {
+    title: "Accounts",
+    url: "/accounts",
+    icon: Wallet,
+  },
+  {
+    title: "Categories",
+    url: "/categories",
+    icon: Tag,
+  },
+];
+
+export function NavMain() {
   const pathname = usePathname();
 
   return (
     <SidebarGroup>
       <SidebarMenu>
-        {items.map((item) => (
-          <SidebarMenuItem key={item.title}>
-            <a href={item.url}>
+        {links.map((link) => (
+          <SidebarMenuItem key={link.title}>
+            <a href={link.url}>
               <SidebarMenuButton
-                tooltip={item.title}
-                isActive={pathname === item.url ? true : false}
+                tooltip={link.title}
+                isActive={pathname === link.url ? true : false}
               >
-                {item.icon && <item.icon />}
-                <span>{item.title}</span>
+                {link.icon && <link.icon />}
+                <span>{link.title}</span>
               </SidebarMenuButton>
             </a>
           </SidebarMenuItem>

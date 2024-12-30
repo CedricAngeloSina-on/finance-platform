@@ -1,7 +1,4 @@
-"use client";
-
 import * as React from "react";
-import { LayoutDashboard, ReceiptText, Tag, Wallet } from "lucide-react";
 
 import { Avatar, AvatarFallback } from "~/components/ui/avatar";
 import { NavMain } from "~/components/nav-main";
@@ -16,32 +13,6 @@ import {
   SidebarRail,
   SidebarMenuItem,
 } from "~/components/ui/sidebar";
-
-// This is sample data.
-const data = {
-  navMain: [
-    {
-      title: "Overview",
-      url: "/overview",
-      icon: LayoutDashboard,
-    },
-    {
-      title: "Records",
-      url: "/records",
-      icon: ReceiptText,
-    },
-    {
-      title: "Accounts",
-      url: "/accounts",
-      icon: Wallet,
-    },
-    {
-      title: "Categories",
-      url: "/categories",
-      icon: Tag,
-    },
-  ],
-};
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
@@ -65,7 +36,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
+        <NavMain />
       </SidebarContent>
       <SidebarFooter>
         <NavUser />
