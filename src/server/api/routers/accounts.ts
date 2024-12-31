@@ -1,7 +1,7 @@
 import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
 
 import { z } from "zod";
-import { and, eq } from "drizzle-orm";
+import { and, eq, inArray } from "drizzle-orm";
 import {
   accounts,
   insertAccountSchema,
@@ -61,5 +61,32 @@ export const accountsRouter = createTRPCRouter({
         .returning();
 
       return account[0];
+    }),
+
+  deleteAccount: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      const deletedAccountId = await ctx.db
+        .delete(accounts)
+        .where(and(eq(accounts.user_id, ctx.userId), eq(accounts.id, input.id)))
+        .returning({ id: accounts.id });
+
+      return deletedAccountId[0];
+    }),
+
+  deleteAccounts: protectedProcedure
+    .input(z.object({ ids: z.array(z.string()) }))
+    .mutation(async ({ ctx, input }) => {
+      const deletedAccountIds = await ctx.db
+        .delete(accounts)
+        .where(
+          and(
+            eq(accounts.user_id, ctx.userId),
+            inArray(accounts.id, input.ids),
+          ),
+        )
+        .returning({ id: accounts.id });
+
+      return deletedAccountIds;
     }),
 });
