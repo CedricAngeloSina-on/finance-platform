@@ -2,7 +2,11 @@ import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
 
 import { z } from "zod";
 import { and, eq } from "drizzle-orm";
-import { accounts, insertAccountSchema } from "~/server/db/schema/accounts";
+import {
+  accounts,
+  insertAccountSchema,
+  updateAccountSchema,
+} from "~/server/db/schema/accounts";
 
 export const accountsRouter = createTRPCRouter({
   createAccount: protectedProcedure
@@ -40,4 +44,22 @@ export const accountsRouter = createTRPCRouter({
 
     return allAccounts;
   }),
+
+  updateAccount: protectedProcedure
+    .input(updateAccountSchema.pick({ id: true, name: true }))
+    .mutation(async ({ ctx, input }) => {
+      if (!input.id) {
+        return null;
+      }
+
+      const account = await ctx.db
+        .update(accounts)
+        .set({
+          name: input.name,
+        })
+        .where(and(eq(accounts.user_id, ctx.userId), eq(accounts.id, input.id)))
+        .returning();
+
+      return account[0];
+    }),
 });

@@ -1,5 +1,5 @@
 import { text } from "drizzle-orm/pg-core";
-import { createInsertSchema } from "drizzle-zod";
+import { createInsertSchema, createUpdateSchema } from "drizzle-zod";
 import { createTable } from "~/server/db/create-table";
 
 export const accounts = createTable("account", {
@@ -12,3 +12,4 @@ export const accounts = createTable("account", {
 });
 
 export const insertAccountSchema = createInsertSchema(accounts);
+export const updateAccountSchema = createUpdateSchema(accounts);
