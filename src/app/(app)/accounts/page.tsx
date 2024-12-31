@@ -1,31 +1,47 @@
 "use client";
 
+import { toast } from "sonner";
 import { api } from "~/trpc/react";
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "~/components/ui/card";
+import { Card, CardContent } from "~/components/ui/card";
 
-import { CreateAccountButton } from "~/features/accounts/components/create-account-button";
+import { columns } from "~/features/accounts/components/columns";
+import { DataTable } from "~/features/accounts/components/data-table";
 
 export default function Accounts() {
-  const { data: accounts } = api.accounts.getAllAccounts.useQuery();
+  const utils = api.useUtils();
+
+  const accounts = api.accounts.getAllAccounts.useQuery();
+  const deleteAccounts = api.accounts.deleteAccounts.useMutation({
+    onSuccess: async () => {
+      await utils.accounts.invalidate();
+      toast.success("Account(s) deleted");
+    },
+    onError: () => {
+      toast.error("Failed to delete accounts");
+    },
+  });
+
+  const disabled = accounts.isPending ?? deleteAccounts.isPending;
 
   return (
     <div>
-      <Card className="max-w-lg">
+      <Card className="">
         <CardContent>
-          <CreateAccountButton />
-          <h1 className="text-primary">
-            {accounts?.map((account) => (
-              <div key={account.id}>{account.name}</div>
-            ))}
-          </h1>
+          <div>
+            {accounts.isPending && <h1>LOADING</h1>}
+            {accounts.data && (
+              <DataTable
+                data={accounts.data}
+                columns={columns}
+                disabled={disabled}
+                onDeleteAction={(rows) => {
+                  const ids = rows.map((row) => row.original.id);
+                  deleteAccounts.mutate({ ids });
+                }}
+              />
+            )}
+          </div>
         </CardContent>
       </Card>
     </div>

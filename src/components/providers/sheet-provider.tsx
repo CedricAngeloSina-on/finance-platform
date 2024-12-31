@@ -1,6 +1,7 @@
 "use client";
 
-import { NewAccountSheet } from "~/features/accounts/components/create-account-sheet";
+import { CreateAccountSheet } from "~/features/accounts/components/create-account-sheet";
+import { EditAccountSheet } from "~/features/accounts/components/edit-account-sheet";
 
 export function SheetProvider({
   children,
@@ -8,7 +9,8 @@ export function SheetProvider({
   return (
     <>
       {children}
-      <NewAccountSheet />
+      <CreateAccountSheet />
+      <EditAccountSheet />
     </>
   );
 }

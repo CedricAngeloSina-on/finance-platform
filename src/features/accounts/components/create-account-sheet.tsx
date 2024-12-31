@@ -27,15 +27,16 @@ const formSchema = insertAccountSchema.pick({
 
 type FormValues = z.infer<typeof formSchema>;
 
-export function NewAccountSheet() {
+export function CreateAccountSheet() {
   const { isOpen, onClose } = useCreateAccount();
 
   const utils = api.useUtils();
 
   const createAccount = api.accounts.createAccount.useMutation({
     onSuccess: async () => {
-      toast.success("Account created");
       await utils.accounts.invalidate();
+      toast.success("Account created");
+      onClose();
     },
     onError: () => {
       toast.error("Failed to create account");
@@ -62,7 +63,6 @@ export function NewAccountSheet() {
             disabled={createAccount.isPending}
           />
         </div>
-
         <SheetFooter>
           <SheetClose asChild>
             <Button className="w-full" variant="secondary">
