@@ -19,8 +19,8 @@ const links = [
     icon: LayoutDashboard,
   },
   {
-    title: "Records",
-    url: "/records",
+    title: "Transactions",
+    url: "/transactions",
     icon: ReceiptText,
   },
   {
