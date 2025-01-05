@@ -52,9 +52,7 @@ export function CreateCategorySheet() {
       <SheetContent side="right">
         <SheetHeader>
           <SheetTitle>New Category</SheetTitle>
-          <SheetDescription>
-            Create a new category to track your transactions
-          </SheetDescription>
+          <SheetDescription>Create a new category</SheetDescription>
         </SheetHeader>
         <div className="grid gap-4 py-4">
           <CategoryForm
