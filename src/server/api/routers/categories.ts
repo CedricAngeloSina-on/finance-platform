@@ -12,11 +12,16 @@ export const categoriesRouter = createTRPCRouter({
   createCategory: protectedProcedure
     .input(insertCategorySchema.pick({ name: true }))
     .mutation(async ({ ctx, input }) => {
-      await ctx.db.insert(categories).values({
-        name: input.name,
-        plaid_id: "TEST PLAID ID",
-        user_id: ctx.userId,
-      });
+      const category = await ctx.db
+        .insert(categories)
+        .values({
+          name: input.name,
+          plaid_id: "TEST PLAID ID",
+          user_id: ctx.userId,
+        })
+        .returning();
+
+      return category[0];
     }),
 
   getCategory: protectedProcedure

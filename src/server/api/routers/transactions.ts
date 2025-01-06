@@ -16,14 +16,19 @@ export const transactionsRouter = createTRPCRouter({
   createTransaction: protectedProcedure
     .input(insertTransactionSchema.omit({ id: true }))
     .mutation(async ({ ctx, input }) => {
-      await ctx.db.insert(transactions).values({
-        amount: input.amount,
-        payee: input.payee,
-        notes: input.notes,
-        date: input.date,
-        account_id: input.account_id,
-        category_id: input.category_id,
-      });
+      const transaction = await ctx.db
+        .insert(transactions)
+        .values({
+          amount: input.amount,
+          payee: input.payee,
+          notes: input.notes,
+          date: input.date,
+          account_id: input.account_id,
+          category_id: input.category_id,
+        })
+        .returning();
+
+      return transaction[0];
     }),
 
   getTransaction: protectedProcedure

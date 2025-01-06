@@ -12,11 +12,16 @@ export const accountsRouter = createTRPCRouter({
   createAccount: protectedProcedure
     .input(insertAccountSchema.pick({ name: true }))
     .mutation(async ({ ctx, input }) => {
-      await ctx.db.insert(accounts).values({
-        name: input.name,
-        plaid_id: "TEST PLAID ID",
-        user_id: ctx.userId,
-      });
+      const account = await ctx.db
+        .insert(accounts)
+        .values({
+          name: input.name,
+          plaid_id: "TEST PLAID ID",
+          user_id: ctx.userId,
+        })
+        .returning();
+
+      return account[0];
     }),
 
   getAccount: protectedProcedure
