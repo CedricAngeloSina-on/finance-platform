@@ -19,9 +19,7 @@ export const transactions = createTable("transaction", {
   account_id: text()
     .references(() => accounts.id, { onDelete: "cascade" })
     .notNull(),
-  category_id: text()
-    .references(() => categories.id, { onDelete: "set null" })
-    .notNull(),
+  category_id: text().references(() => categories.id, { onDelete: "set null" }),
 });
 
 export const transactionsRelations = relations(transactions, ({ one }) => ({

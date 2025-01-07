@@ -1,0 +1,1 @@
+ALTER TABLE "finance-platform_transaction" ALTER COLUMN "category_id" DROP NOT NULL;
