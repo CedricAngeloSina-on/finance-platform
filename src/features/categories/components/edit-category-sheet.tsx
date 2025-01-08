@@ -49,13 +49,17 @@ export function EditCategorySheet() {
     : { name: "" };
 
   const deleteCategory = api.categories.deleteCategory.useMutation({
+    onMutate: () => {
+      toast.loading("Deleting category");
+    },
     onSuccess: async () => {
-      await utils.categories.getAllCategories.invalidate();
-      toast.success("Category deleted");
-      onClose();
+      await utils.categories.invalidate();
+      toast.dismiss();
+      toast.success("Category(s) deleted", { duration: 5000 });
     },
     onError: () => {
-      toast.error("Failed to delete Category");
+      toast.dismiss();
+      toast.error("Failed to delete category", { duration: 5000 });
     },
   });
 
@@ -68,13 +72,17 @@ export function EditCategorySheet() {
   };
 
   const updateCategory = api.categories.updateCategory.useMutation({
+    onMutate: () => {
+      toast.loading("Updating category");
+    },
     onSuccess: async () => {
       await utils.categories.invalidate();
-      toast.success("Category updated");
+      toast.dismiss();
+      toast.success("Category updated", { duration: 5000 });
       onClose();
     },
     onError: () => {
-      toast.error("Failed to update category");
+      toast.error("Failed to update category", { duration: 5000 });
     },
   });
 

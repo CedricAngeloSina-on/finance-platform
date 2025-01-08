@@ -26,12 +26,17 @@ export function DataTableRowActions({ id }: { id: string }) {
   const utils = api.useUtils();
 
   const deleteCategory = api.categories.deleteCategory.useMutation({
+    onMutate: () => {
+      toast.loading("Deleting categories");
+    },
     onSuccess: async () => {
       await utils.categories.invalidate();
-      toast.success("Category deleted");
+      toast.dismiss();
+      toast.success("Category deleted", { duration: 5000 });
     },
     onError: () => {
-      toast.error("Failed to delete category");
+      toast.dismiss();
+      toast.error("Failed to delete category", { duration: 5000 });
     },
   });
 

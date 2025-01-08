@@ -13,12 +13,17 @@ export default function Categories() {
 
   const categories = api.categories.getAllCategories.useQuery();
   const deleteCategories = api.categories.deleteCategories.useMutation({
+    onMutate: () => {
+      toast.loading("Deleting categories(s)");
+    },
     onSuccess: async () => {
       await utils.categories.invalidate();
-      toast.success("Category(s) deleted");
+      toast.dismiss();
+      toast.success("Category(s) deleted", { duration: 5000 });
     },
     onError: () => {
-      toast.error("Failed to delete category(s)");
+      toast.dismiss();
+      toast.error("Failed to delete category(s)", { duration: 5000 });
     },
   });
 

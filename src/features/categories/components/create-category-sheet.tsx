@@ -33,13 +33,21 @@ export function CreateCategorySheet() {
   const utils = api.useUtils();
 
   const createCategory = api.categories.createCategory.useMutation({
+    onMutate: () => {
+      toast.loading("Creating category");
+    },
     onSuccess: async () => {
       await utils.categories.invalidate();
-      toast.success("Category created");
+      toast.dismiss();
+      toast.success("Category created", {
+        duration: 5000,
+      });
       onClose();
     },
     onError: () => {
-      toast.error("Failed to create category");
+      toast.error("Failed to create category", {
+        duration: 5000,
+      });
     },
   });
 
