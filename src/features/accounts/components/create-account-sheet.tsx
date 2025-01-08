@@ -33,13 +33,21 @@ export function CreateAccountSheet() {
   const utils = api.useUtils();
 
   const createAccount = api.accounts.createAccount.useMutation({
+    onMutate: () => {
+      toast.loading("Creating account");
+    },
     onSuccess: async () => {
       await utils.accounts.invalidate();
-      toast.success("Account created");
+      toast.dismiss();
+      toast.success("Account created", {
+        duration: 5000,
+      });
       onClose();
     },
     onError: () => {
-      toast.error("Failed to create account");
+      toast.error("Failed to create account", {
+        duration: 5000,
+      });
     },
   });
 

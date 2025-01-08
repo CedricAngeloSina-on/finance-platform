@@ -13,12 +13,21 @@ export default function Accounts() {
 
   const accounts = api.accounts.getAllAccounts.useQuery();
   const deleteAccounts = api.accounts.deleteAccounts.useMutation({
+    onMutate: () => {
+      toast.loading("Deleting account(s)");
+    },
     onSuccess: async () => {
       await utils.accounts.invalidate();
-      toast.success("Account(s) deleted");
+      toast.dismiss();
+      toast.success("Account(s) deleted", {
+        duration: 5000,
+      });
     },
     onError: () => {
-      toast.error("Failed to delete accounts");
+      toast.dismiss();
+      toast.error("Failed to delete accounts", {
+        duration: 5000,
+      });
     },
   });
 

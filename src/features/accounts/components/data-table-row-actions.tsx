@@ -26,12 +26,21 @@ export function DataTableRowActions({ id }: { id: string }) {
   const utils = api.useUtils();
 
   const deleteAccount = api.accounts.deleteAccount.useMutation({
+    onMutate: () => {
+      toast.loading("Deleting account(s)");
+    },
     onSuccess: async () => {
       await utils.accounts.invalidate();
-      toast.success("Account deleted");
+      toast.dismiss();
+      toast.success("Account deleted", {
+        duration: 5000,
+      });
     },
     onError: () => {
-      toast.error("Failed to delete account");
+      toast.dismiss();
+      toast.error("Failed to delete account", {
+        duration: 5000,
+      });
     },
   });
 

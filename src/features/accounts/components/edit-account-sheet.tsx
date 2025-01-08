@@ -49,13 +49,22 @@ export function EditAccountSheet() {
     : { name: "" };
 
   const deleteAccount = api.accounts.deleteAccount.useMutation({
+    onMutate: () => {
+      toast.loading("Deleting account");
+    },
     onSuccess: async () => {
       await utils.accounts.getAllAccounts.invalidate();
-      toast.success("Account deleted");
+      toast.dismiss();
+      toast.success("Account deleted", {
+        duration: 5000,
+      });
       onClose();
     },
     onError: () => {
-      toast.error("Failed to delete account");
+      toast.dismiss();
+      toast.error("Failed to delete account", {
+        duration: 5000,
+      });
     },
   });
 
@@ -68,13 +77,21 @@ export function EditAccountSheet() {
   };
 
   const updateAccount = api.accounts.updateAccount.useMutation({
+    onMutate: () => {
+      toast.loading("updating account");
+    },
     onSuccess: async () => {
       await utils.accounts.invalidate();
-      toast.success("Account updated");
+      toast.dismiss();
+      toast.success("Account updated", {
+        duration: 5000,
+      });
       onClose();
     },
     onError: () => {
-      toast.error("Failed to update account");
+      toast.error("Failed to update account", {
+        duration: 5000,
+      });
     },
   });
 
