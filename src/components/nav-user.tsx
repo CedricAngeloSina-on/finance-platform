@@ -11,6 +11,7 @@ import {
   Sparkles,
 } from "lucide-react";
 
+import { ThemeSwitcher, ThemeToggle } from "~/components/theme-switcher";
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import {
   DropdownMenu,
@@ -87,23 +88,13 @@ export function NavUser() {
                 </div>
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuGroup>
-                <DropdownMenuItem>
-                  <Sparkles />
-                  Upgrade to Pro
-                </DropdownMenuItem>
-              </DropdownMenuGroup>
-              <DropdownMenuSeparator />
-              <DropdownMenuGroup>
-                <DropdownMenuItem>
-                  <Settings />
-                  Settings
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <CircleHelp />
-                  Help
-                </DropdownMenuItem>
-              </DropdownMenuGroup>
+              <DropdownMenuItem>
+                <Settings />
+                Settings
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={(event) => event.preventDefault()}>
+                <ThemeToggle />
+              </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={() => signOut(() => router.push("/"))}>
                 <LogOut />
