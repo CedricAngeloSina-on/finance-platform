@@ -14,8 +14,8 @@ import {
 
 const links = [
   {
-    title: "Overview",
-    url: "/overview",
+    title: "Summary",
+    url: "/summary",
     icon: LayoutDashboard,
   },
   {
