@@ -14,12 +14,12 @@ export function calculatePercentageChange(current: number, previous: number) {
   return ((current - previous) / previous) * 100;
 }
 
-export function convertAmountFromMiliunits(amount: number) {
-  return amount / 1000;
+export function convertAmountFromCents(amount: number) {
+  return amount / 100;
 }
 
-export function convertAmountToMiliunits(amount: number) {
-  return Math.round(amount * 1000);
+export function convertAmountToCents(amount: number) {
+  return Math.round(amount * 100);
 }
 
 export function fillMissingDays(

@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { convertAmountToMiliunits } from "~/lib/utils";
+import { convertAmountToCents } from "~/lib/utils";
 import { AmountInput } from "~/components/amount-input";
 import { CreatableSelect } from "~/components/creatable-select";
 import { DatePicker } from "~/components/date-picker";
@@ -70,7 +70,7 @@ export function TransactionForm({
 
   function handleSubmit(values: FormValues) {
     const amount = parseFloat(values.amount);
-    const amountInMiliunits = convertAmountToMiliunits(amount);
+    const amountInMiliunits = convertAmountToCents(amount);
 
     onSubmitAction({
       ...values,

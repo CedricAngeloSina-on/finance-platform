@@ -7,7 +7,7 @@ import { Card, CardContent } from "~/components/ui/card";
 
 import { columns } from "~/features/transactions/components/columns";
 import { DataTable } from "~/features/transactions/components/data-table";
-import { convertAmountFromMiliunits } from "~/lib/utils";
+import { convertAmountFromCents } from "~/lib/utils";
 
 export default function Transactions() {
   const utils = api.useUtils();
@@ -19,7 +19,7 @@ export default function Transactions() {
       select: (data) =>
         data.map((transaction) => ({
           ...transaction,
-          amount: convertAmountFromMiliunits(transaction.amount),
+          amount: convertAmountFromCents(transaction.amount),
         })),
     },
   );

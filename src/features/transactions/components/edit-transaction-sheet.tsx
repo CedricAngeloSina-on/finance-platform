@@ -4,7 +4,7 @@ import { api } from "~/trpc/react";
 import { toast } from "sonner";
 import { type z } from "zod";
 
-import { convertAmountFromMiliunits } from "~/lib/utils";
+import { convertAmountFromCents } from "~/lib/utils";
 import { Button } from "~/components/ui/button";
 import {
   Sheet,
@@ -46,7 +46,7 @@ export function EditTransactionSheet() {
       select: (transaction) =>
         transaction && {
           ...transaction,
-          amount: convertAmountFromMiliunits(transaction.amount),
+          amount: convertAmountFromCents(transaction.amount),
         },
     },
   );
