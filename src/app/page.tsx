@@ -32,7 +32,7 @@ export default async function Home() {
           </Link>
         </div>
         <div className="flex flex-col items-center gap-2">
-          <Link href="/overview">OVERVIEW</Link>
+          <Link href="/summary">SUMMARY</Link>
           <Link href="/accounts">ACCOUNTS</Link>
           <Link href="/transactions">TRANSACTIONS</Link>
         </div>
