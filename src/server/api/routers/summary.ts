@@ -53,9 +53,7 @@ export const summaryRouter = createTRPCRouter({
               gte(transactions.date, startDate),
               lte(transactions.date, endDate),
             ),
-          )
-          .groupBy(transactions.date)
-          .orderBy(desc(transactions.date));
+          );
       }
 
       const [currentPeriod] = await fetchFinancialData(
@@ -76,13 +74,13 @@ export const summaryRouter = createTRPCRouter({
       );
 
       const expensesChange = calculatePercentageChange(
-        currentPeriod?.income ?? 0,
-        lastPeriod?.income ?? 0,
+        currentPeriod?.expenses ?? 0,
+        lastPeriod?.expenses ?? 0,
       );
 
       const remainingChange = calculatePercentageChange(
-        currentPeriod?.income ?? 0,
-        lastPeriod?.income ?? 0,
+        currentPeriod?.remaining ?? 0,
+        lastPeriod?.remaining ?? 0,
       );
 
       const categorySummary = await ctx.db
@@ -143,10 +141,10 @@ export const summaryRouter = createTRPCRouter({
       const days = fillMissingDays(activeDays, startDate, endDate);
 
       return {
-        remainingAmmount: currentPeriod!.income,
-        remainingChange,
         incomeAmmount: currentPeriod!.income,
         incomeChange,
+        remainingAmmount: currentPeriod!.remaining,
+        remainingChange,
         expensesAmount: currentPeriod!.expenses,
         expensesChange,
         categorySummary: finalCategorySummary,
