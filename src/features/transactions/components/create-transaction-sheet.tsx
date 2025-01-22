@@ -2,7 +2,7 @@
 
 import { api } from "~/trpc/react";
 import { toast } from "sonner";
-import { z } from "zod";
+import { type z } from "zod";
 
 import { Button } from "~/components/ui/button";
 import {

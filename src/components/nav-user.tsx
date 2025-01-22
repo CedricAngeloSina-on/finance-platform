@@ -3,20 +3,13 @@
 import { useRouter } from "next/navigation";
 import { ClerkLoaded, useClerk, useUser } from "@clerk/nextjs";
 
-import {
-  ChevronsUpDown,
-  CircleHelp,
-  LogOut,
-  Settings,
-  Sparkles,
-} from "lucide-react";
+import { ChevronsUpDown, LogOut, Settings } from "lucide-react";
 
-import { ThemeSwitcher, ThemeToggle } from "~/components/theme-switcher";
+import { ThemeToggle } from "~/components/theme-switcher";
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,

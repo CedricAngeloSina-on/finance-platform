@@ -1,7 +1,6 @@
 "use client";
 
 import { format } from "date-fns";
-import { TrendingUp } from "lucide-react";
 import {
   Bar,
   BarChart as RechartsBarChart,
@@ -9,13 +8,7 @@ import {
   XAxis,
 } from "recharts";
 
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "~/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import {
   type ChartConfig,
   ChartContainer,
