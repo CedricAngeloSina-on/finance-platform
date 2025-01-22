@@ -43,6 +43,12 @@ export default function Summary() {
           percentageChange={summary.data?.expensesChange}
         />
       </div>
+      <div className="grid auto-rows-min gap-4 lg:grid-cols-3">
+        <div className="min-h-[300px] flex-1 rounded-xl lg:col-span-2">
+          <BarChart data={summary.data?.days} />
+        </div>
+        <div className="min-h-[300px] flex-1 rounded-xl"></div>
+      </div>
     </div>
   );
 }
